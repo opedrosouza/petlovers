@@ -34,5 +34,37 @@ RSpec.describe PetsController, type: :controller do
         expect(response).to render_template("new")
       end
     end
+
+    describe "GET edit" do
+      let(:pet) { create(:pet) }
+      it "has a 200 status code" do
+        get :edit, params: { id: pet.id }
+        expect(response.status).to eq(200)
+      end
+      it "renders the 'edit' template" do
+        get :edit, params: { id: pet.id }
+        expect(response).to render_template("edit")
+      end
+    end
+
+    describe "PATCH update" do
+      let(:pet) { create(:pet) }
+      it "Redirect Success" do
+        patch :update, params: { pet: { name: 'zeze', birth_date: DateTime.now, breed: 'pincher', kind: 'dog' }, id: pet.id }
+        expect(response).to redirect_to(pets_path)
+      end
+      it "Render :new on failure" do
+        patch :update, params: { pet: { name: 'zeze', birth_date: DateTime.now, breed: '', kind: 'dog' }, id: pet.id }
+        expect(response).to render_template("edit")
+      end
+    end
+
+    describe "DELETE destroy" do
+      let(:pet) { create(:pet) }
+      it "Redirect Success" do
+        delete :destroy, params: { id: pet.id }
+        expect(response).to redirect_to(pets_path)
+      end
+    end
   end
 end

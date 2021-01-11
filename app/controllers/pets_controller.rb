@@ -1,9 +1,9 @@
 class PetsController < ApplicationController
   before_action :set_pet, except: %i[index new create]
-  before_action :get_kinds, except: %i[index show]
+  before_action :get_kinds, except: %i[index show destroy]
 
   def index
-    @pets = Pet.all
+    @pets = Pet.all.order(created_at: :asc)
   end
 
   def show; end
@@ -21,6 +21,21 @@ class PetsController < ApplicationController
       flash.now[:alert] = @pet.errors.full_messages
       render :new
     end
+  end
+
+  def edit; end
+
+  def update
+    if @pet.update pet_params
+      redirect_to pets_path, notice: 'Pet updated successfully.'
+    else
+      flash.now[:alert] = @pet.errors.full_messages
+      render :edit
+    end
+  end
+
+  def destroy
+    redirect_to pets_path, notice: 'Pet removed successfully.' if @pet.destroy
   end
 
   private
