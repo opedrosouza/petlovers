@@ -27,6 +27,9 @@
       </div>
     </nav>
 
+    <%= render Utils::Alert::Component.new(message: notice, type: 'success') if notice %>
+    <%= render Utils::Alert::Component.new(message: alert, type: 'error') if alert %>
+
     <main class="container my-5">
       <%= yield %>
     </main>

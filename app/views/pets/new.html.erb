@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-12">
+    <h3>Add New Pet</h3>
+  </div>
+</div>
+
+<div class="row d-flex justify-content-center align-items-center mt-5">
+  <div class="col-12 col-md-8 col-lg-6">
+    <div class="card shadow">
+      <div class="card-body">
+        <%= form_with model: @pet, local: true do |f| %>
+          <div class="form-group">
+            <%= f.label :name, "Pet Name" %>
+            <%= f.text_field :name, placeholder: 'Ex. Shaolin', class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :birth_date, "Pet BirthDate" %>
+            <%= f.datetime_field :birth_date, placeholder: 'Ex. Shaolin', class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :breed, "Pet Breed" %>
+            <%= f.text_field :breed, placeholder: 'Ex. PitBull', class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :kind, "Pet Kind" %>
+            <%= f.select :kind, @kinds, { prompt: 'Select your pet type' }, placeholder: 'Ex. PitBull', class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <%= f.submit 'Save', disable_with: 'Saving...', class: 'btn btn-success btn-block' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
